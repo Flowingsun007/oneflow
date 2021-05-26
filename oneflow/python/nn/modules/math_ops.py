@@ -1004,8 +1004,8 @@ def clamp_op(tensor, min = None, max = None):
 
     Args:
         input (Tensor): the input tensor.
-        min (Number): lower-bound of the range to be clamped to
-        max (Number): upper-bound of the range to be clamped to
+        min (Number): lower-bound of the range to be clamped to. Defaults to None.
+        max (Number): upper-bound of the range to be clamped to. Defaults to None.
         out (Tensor, optional): the output tensor.
 
     For example:
@@ -1021,54 +1021,13 @@ def clamp_op(tensor, min = None, max = None):
         flow.clamp(input, min=-0.5, max=0.5)
         # output equal to np.clip(arr, a_min=-0.5, a_max=0.5)
 
-    .. function:: clamp(input, *, min, out=None) -> Tensor
+    """
+    return Clamp(min, max)(tensor)
 
-    Clamps all elements in :attr:`input` to be larger or equal :attr:`min`.
-
-    If :attr:`input` is of type `FloatTensor` or `DoubleTensor`, :attr:`value`
-    should be a real number, otherwise it should be an integer.
-
-    Args:
-        input (Tensor): the input tensor.
-        value (Number): minimal value of each element in the output
-        out (Tensor, optional): the output tensor.
-
-    For example:
-
-
-    .. code-block:: python
-
-        import oneflow.experimental as flow
-        import numpy as np
-
-        arr = np.random.randn(2, 6, 5, 3)
-        input = flow.Tensor(arr)
-        flow.clamp(input, min=0.5)
-        # output equal to np.clip(arr, a_min=-0.5, a_max=None)
-
-    .. function:: clamp(input, *, max, out=None) -> Tensor
-
-    Clamps all elements in :attr:`input` to be smaller or equal :attr:`max`.
-
-    If :attr:`input` is of type `FloatTensor` or `DoubleTensor`, :attr:`value`
-    should be a real number, otherwise it should be an integer.
-
-    Args:
-        input (Tensor): the input tensor.
-        value (Number): maximal value of each element in the output
-        out (Tensor, optional): the output tensor.
-
-    For example:
-
-    .. code-block:: python
-
-        import oneflow.experimental as flow
-        import numpy as np
-
-        arr = np.random.randn(2, 6, 5, 3)
-        input = flow.Tensor(arr)
-        flow.clamp(input, max=0.5)
-        # output equal to np.clip(arr, a_min=None, a_max=0.5)
-
+@oneflow_export("clamp")
+@experimental_api
+def clamp_op_tensor(tensor, min = None, max = None):
+    r"""
+    See :func:`oneflow.experimental.clamp`
     """
     return Clamp(min, max)(tensor)
